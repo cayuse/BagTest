@@ -57,6 +57,5 @@ public:
     BagInterface<ItemType>* operator-(const BagInterface<ItemType> &rightHandSide) const;
 }
 ; // end LinkedBag
-#include "LinkedBag.cpp"
 
 #endif

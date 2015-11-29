@@ -56,5 +56,4 @@ public:
 }
 ; // end ArrayBag
 
-#include "ArrayBag.cpp"
 #endif

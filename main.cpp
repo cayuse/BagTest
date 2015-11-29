@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <exception>
 #include "BagInterface.h"
-#include "LinkedBag.h"
-#include "ArrayBag.h"
+#include "LinkedBag.cpp"
+#include "ArrayBag.cpp"
 
 
 
