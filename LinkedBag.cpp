@@ -238,7 +238,7 @@ BagInterface<ItemType>* LinkedBag<ItemType>::difference(const BagInterface<ItemT
 }
 
 template<class ItemType>
-BagInterface<ItemType>* LinkedBag<ItemType>::operator=(const BagInterface<ItemType> &rightHandSide)
+BagInterface<ItemType>& LinkedBag<ItemType>::operator=(const BagInterface<ItemType> &rightHandSide)
 {
    // Check for assignment to self
    if (this != &rightHandSide)
@@ -252,7 +252,7 @@ BagInterface<ItemType>* LinkedBag<ItemType>::operator=(const BagInterface<ItemTy
       }
    }  // end if
    
-   return this; 
+   return *this; 
 }
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::operator+(const BagInterface<ItemType> &rightHandSide) const

@@ -234,7 +234,7 @@ BagInterface<ItemType>* ArrayBag<ItemType>::difference(const BagInterface<ItemTy
 }
 
 template<class ItemType>
-BagInterface<ItemType>* ArrayBag<ItemType>::operator=(const BagInterface<ItemType> &rightHandSide)
+BagInterface<ItemType>& ArrayBag<ItemType>::operator=(const BagInterface<ItemType> &rightHandSide)
 {
    // Check for assignment to self
    if (this != &rightHandSide)
@@ -248,7 +248,7 @@ BagInterface<ItemType>* ArrayBag<ItemType>::operator=(const BagInterface<ItemTyp
       }
    }  // end if
    
-   return this; 
+   return *this; 
 }
 
 template<class ItemType>

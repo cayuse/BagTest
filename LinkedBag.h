@@ -50,12 +50,14 @@ public:
     BagInterface<ItemType>* difference(const BagInterface<ItemType> &otherBag) const;
 
     /** Operator overloads (= + -) and have the usual meanings */
-    BagInterface<ItemType>* operator=(const BagInterface<ItemType> &rightHandSide);
+    BagInterface<ItemType>& operator=(const BagInterface<ItemType> &rightHandSide);
 
     BagInterface<ItemType>* operator+(const BagInterface<ItemType> &rightHandSide) const;
 
     BagInterface<ItemType>* operator-(const BagInterface<ItemType> &rightHandSide) const;
+
 }
 ; // end LinkedBag
+    #include "LinkedBag.cpp"
 
 #endif

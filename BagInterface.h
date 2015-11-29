@@ -70,7 +70,7 @@ public:
     virtual BagInterface<ItemType>* difference(const BagInterface<ItemType> &otherBag) const = 0;
     
     /** Operator overloads (= + -) and have the usual meanings */
-    virtual BagInterface<ItemType>* operator=(const BagInterface<ItemType> &rightHandSide) = 0;
+    virtual BagInterface<ItemType>& operator=(const BagInterface<ItemType> &rightHandSide) = 0;
     
     virtual BagInterface<ItemType>* operator+(const BagInterface<ItemType> &rightHandSide) const = 0;
     
