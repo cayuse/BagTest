@@ -160,21 +160,21 @@ int ArrayBag<ItemType>::getIndexOf(const ItemType& target) const
 
 
 // Homework part
-    /* The result of thise operations will be a LinkedBag (since LinkedBag created it).
+    /* The result of thise operations will be an ArrayBag (since LinkedBag created it).
        However, since the argument to this method is of type BagInterface,
        it should be able to work with any ADT compliant object.
        Therefore, we'll handle the argument with ADT Primitives.
     */
     
 template<class ItemType>
-BagInterface<ItemType>* ArrayBag<ItemType>::Union(const BagInterface<ItemType> &otherBag) const throw(length_error)
+BagInterface<ItemType>* ArrayBag<ItemType>::Union(const BagInterface<ItemType> &otherBag) const throw(out_of_range)
 {
     vector<ItemType> myVec = (*this).toVector();
     vector<ItemType> otherVec = otherBag.toVector();
     int lcv;
     if (myVec.size() + otherVec.size() > maxItems)
     {
-        throw length_error("maxItems exceeded");
+        throw out_of_range("maxItems exceeded");
     }
     // don't create a new bag unless we are past the test.
     ArrayBag<ItemType>* newBag = new ArrayBag<ItemType>();
@@ -194,18 +194,25 @@ BagInterface<ItemType>* ArrayBag<ItemType>::Union(const BagInterface<ItemType> &
 template<class ItemType>
 BagInterface<ItemType>* ArrayBag<ItemType>::intersection(const BagInterface<ItemType> &otherBag) const
 {
+    // create a new bag to return
     ArrayBag<ItemType>* newBag = new ArrayBag<ItemType>();
-    ArrayBag<ItemType> myBagCopy = *this;
+    int lcv;
+    // create a temp copy of the current bag
+    vector<ItemType> myVec = (*this).toVector();
+    ArrayBag<ItemType> myBagCopy;
+    for (lcv = 0; lcv < myVec.size(); lcv ++)
+    {
+        myBagCopy.add(myVec[lcv]);
+    }
+    // create a temp copy of the argument bag
     vector<ItemType> otherBagVec = otherBag.toVector();
     ArrayBag<ItemType> otherBagCopy;
-    for (int lcv = 0; lcv < otherBagVec.size(); lcv ++)
+    for (lcv = 0; lcv < otherBagVec.size(); lcv ++)
     {
         otherBagCopy.add(otherBagVec[lcv]);
     }
-
-
-    vector<ItemType> myVec = (*this).toVector();
-    for (int lcv = 0; lcv < myVec.size(); lcv ++)
+    // compare and add to the return bag
+    for (lcv = 0; lcv < myVec.size(); lcv ++)
         if (myBagCopy.contains(myVec[lcv]) && otherBagCopy.contains(myVec[lcv]))
         {
             newBag->add(myVec[lcv]);

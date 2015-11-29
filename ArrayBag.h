@@ -38,7 +38,7 @@ public:
 
     /* ######################## Homework Here ##################### */
     /** @return a new ArrayBag combined with contents of otherBag */
-    BagInterface<ItemType>* Union(const BagInterface<ItemType> &otherBag) const throw(std::length_error);
+    BagInterface<ItemType>* Union(const BagInterface<ItemType> &otherBag) const throw(out_of_range);
 
     /** @return new ArrayBag with intersection of otherBag */
     BagInterface<ItemType>* intersection(const BagInterface<ItemType> &otherBag) const;

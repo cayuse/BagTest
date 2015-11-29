@@ -14,6 +14,7 @@ LinkedBag<ItemType>::LinkedBag() : headPtr(NULL), itemCount(0)
 {
 }  // end default constructor
 
+
 template<class ItemType>
 LinkedBag<ItemType>::LinkedBag(const LinkedBag<ItemType>& aBag)
 {
@@ -182,10 +183,14 @@ BagInterface<ItemType>* LinkedBag<ItemType>::Union(const BagInterface<ItemType> 
 
 {
     LinkedBag<ItemType>* newBag = new LinkedBag<ItemType>();
-    *newBag = *this;
     int lcv;
+    vector<ItemType> myVec = this->toVector();
     vector<ItemType> otherVec = otherBag.toVector();
-
+    
+    for (lcv = 0; lcv < myVec.size(); lcv++)
+    {
+        newBag->add(myVec[lcv]);
+    }
     for (lcv = 0; lcv < otherVec.size(); lcv++)
     {
         newBag->add(otherVec[lcv]);
@@ -197,16 +202,24 @@ BagInterface<ItemType>* LinkedBag<ItemType>::Union(const BagInterface<ItemType> 
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::intersection(const BagInterface<ItemType> &otherBag) const
 {
+    // create a new bag to return
     LinkedBag<ItemType>* newBag = new LinkedBag<ItemType>();
     int lcv;
-    LinkedBag<ItemType> myBagCopy = *this;
+    // create a temp copy of the current bag
+    vector<ItemType> myVec = (*this).toVector();
+    LinkedBag<ItemType> myBagCopy;
+    for (lcv = 0; lcv < myVec.size(); lcv ++)
+    {
+        myBagCopy.add(myVec[lcv]);
+    }
+    // create a temp copy of the argument bag
     vector<ItemType> otherBagVec = otherBag.toVector();
     LinkedBag<ItemType> otherBagCopy;
-    for (int lcv = 0; lcv < otherBagVec.size(); lcv ++)
+    for (lcv = 0; lcv < otherBagVec.size(); lcv ++)
     {
         otherBagCopy.add(otherBagVec[lcv]);
     }
-    vector<ItemType> myVec = (*this).toVector();
+    // compare and add to the return bag
     for (lcv = 0; lcv < myVec.size(); lcv ++)
         if (myBagCopy.contains(myVec[lcv]) && otherBagCopy.contains(myVec[lcv]))
         {
@@ -265,6 +278,26 @@ BagInterface<ItemType>* LinkedBag<ItemType>::operator-(const BagInterface<ItemTy
 {
     return(this->difference(rightHandSide) );
 }
+/** Weird code to clear out the most random linker error ever */
+template<class ItemType>
+LinkedBag<ItemType>& LinkedBag<ItemType>::operator=(const LinkedBag<ItemType> &rightHandSide)
+{
+   // Check for assignment to self
+   if (this != &rightHandSide)
+   {
+      this->clear();  // Deallocate left-hand side
+      int lcv;
+      vector<ItemType> otherVec = rightHandSide.toVector();
+      for (lcv = 0; lcv < otherVec.size(); lcv++)
+      {
+        this->add(otherVec[lcv]);
+      }
+   }  // end if
+   
+   return *this;     
+}
+    
+
 
 // private
 // Returns either a pointer to the node containing a given entry

@@ -84,6 +84,7 @@ void bagTester(BagInterface<string>& bag1, BagInterface<string>& bag2,
     bool again;
 
     // initial simple tests
+    cout << endl << "##### Original tests #####" << endl;
     cout << "Simple Union test of bag1 and bag2:" << endl;
     testBag1 = bag1.Union(bag2);
     displayBag(*testBag1, "testBag1");
@@ -105,7 +106,7 @@ void bagTester(BagInterface<string>& bag1, BagInterface<string>& bag2,
             testBag4 = bag1.Union(bag4);
             displayBag(*testBag4, "testBag4");
         }
-        catch (length_error err)
+        catch (out_of_range err)
         {
             cout << "Caught error: " << err.what() << " Reducing size of bag4." << endl;
             dropFirst(bag4);
@@ -115,7 +116,6 @@ void bagTester(BagInterface<string>& bag1, BagInterface<string>& bag2,
     }
     while (again)
         ;
-
     // clean up
     delete testBag1;
     delete testBag2;
@@ -125,7 +125,55 @@ void bagTester(BagInterface<string>& bag1, BagInterface<string>& bag2,
     testBag2 = NULL;
     testBag3 = NULL;
     testBag4 = NULL;
+    
+    cout << endl << "##### Operator tests #####" << endl;
+    cout << "Simple \"+\" test of bag1 and bag2:" << endl;
+    cout << "Display before:";
+    displayBag(bag1, "bag1");
+    displayBag(bag1, "bag2");
+    testBag1 = bag1 + bag2;
+    cout << "Display after:";
+    displayBag(*testBag1, "testBag1");
 
+    cout << "Simple \"-\" test of bag1 and bag2:" << endl;
+    cout << "Display before:";
+    displayBag(bag3, "bag3");
+    displayBag(bag4, "bag4");
+    testBag2 = bag3 - bag4;
+    displayBag(*testBag2, "testBag2");
+    
+    cout << "Simple \"=\" test of bag1 and bag2:" << endl;
+    cout << "Display before:";
+    displayBag(bag1, "bag1");
+    displayBag(bag1, "bag2");
+    bag1 = bag2;
+    cout << "Display after:";
+    displayBag(bag1, "bag1");
+    displayBag(bag1, "bag2");
+
+    cout << "Possible Throw \"+\" test of bag1 and bag3:" << endl;
+    cout << "Display before:";
+    displayBag(bag1, "bag1");
+    displayBag(bag3, "bag3");
+    do
+    {
+        again = false;
+        try
+        {
+            cout << endl << "\"+\" exception test of bag1 and bag3:" <<endl;
+            testBag3 = bag1 + bag3;
+            displayBag(*testBag3, "testBag3");
+        }
+        catch (out_of_range err)
+        {
+            cout << "Caught error: " << err.what() << " Reducing size of bag3." << endl;
+            dropFirst(bag3);
+            displayBag(bag3, "Bag3 after drop");
+            again = true;
+        }
+    }
+    while (again)
+        ;
 }  // end bagTester
 
 

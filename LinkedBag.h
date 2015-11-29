@@ -56,6 +56,12 @@ public:
 
     BagInterface<ItemType>* operator-(const BagInterface<ItemType> &rightHandSide) const;
 
+    /** Prof James.. without this method, this code wouldn't compile, it was getting
+    the strangest linker error.. I don't know how this "fixed" it, but I consider
+    it a workaround, not a real solution.  If you are interested, remove this
+    decrlaration and the matching implementation and see if it comes back.
+    */
+    LinkedBag<ItemType>& operator=(const LinkedBag<ItemType> &rightHandSide);
 }
 ; // end LinkedBag
     #include "LinkedBag.cpp"
